@@ -66,6 +66,10 @@ def get_LBP_vector(face_image_path):
             image=cv2.add(image,g)
 
     pca = PCA(n_components=2)
+    min_length = min(result[0].shape[0],result[1].shape[0], result[2].shape[0])
+    result[0] = result[0][:min_length]  # 切片截取到跟最短列表一样的长度
+    result[1]= result[1][:min_length]
+    result[2]= result[2][:min_length]
     pca.fit(result)
     X_pca = pca.fit_transform(result)
     x = []
@@ -93,7 +97,7 @@ if __name__ == '__main__':
     predictor_path = "C:/Users/wry/Desktop/shape_predictor_68_face_landmarks.dat"
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(predictor_path)
-    image_path = "C:/Users/wry/Desktop/3.jpg"
+    image_path = "C:/Users/wry/Desktop/2003.jpg"
     LBP_vector=get_LBP_vector(image_path)
     print(LBP_vector)
 
