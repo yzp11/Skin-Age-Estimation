@@ -64,9 +64,28 @@ def get_LBP_vector(face_image_path):
             cropped_image=gray[top:bottom, left:right]
             result.append(LBP_extract(cropped_image))
             image=cv2.add(image,g)
+
+    pca = PCA(n_components=2)
+    pca.fit(result)
+    X_pca = pca.fit_transform(result)
+    x = []
+    for l in X_pca:
+        x.append(l[0])
+        x.append(l[1])
+    result=normalize(x)
         # cv2.imshow('result', image)
         # cv2.waitKey(0)
 
+    return result
+
+def normalize(lst):
+    # 计算最大值和最小值
+    max_val = max(lst)
+    min_val = min(lst)
+    # 计算最大值和最小值的差值
+    diff = max_val - min_val
+    # 对于每个元素，进行归一化
+    result = [(x - min_val) / diff for x in lst]
     return result
 
 
@@ -78,9 +97,3 @@ if __name__ == '__main__':
     LBP_vector=get_LBP_vector(image_path)
     print(LBP_vector)
 
-    pca = PCA(n_components=2)
-    # x=x.reshape(-1,1)
-    # 对数据进行降维
-    pca.fit(LBP_vector)
-    X_pca = pca.fit_transform(LBP_vector)
-    print(X_pca)
