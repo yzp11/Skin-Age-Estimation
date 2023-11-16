@@ -6,7 +6,9 @@ if __name__ =='__main__':
     dataloader=DataLoader(data_path)
     predict_path=''
 
-    my_model=SVR_BSTree(1,10)
+    min,max=dataloader.get_age_range()
+
+    my_model=SVR_BSTree(min,max)
     my_model.build_tree()
     my_model.regression(dataloader)
 

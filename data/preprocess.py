@@ -135,11 +135,17 @@ def data_select(file_path):
 
     for i in range(0,select_num):
         k=random.randint(0,data_num)
+        if Age[k]<0:
+            continue
         temp_data.append([Path[k],Age[k]])
 
     data=["path","age"]
 
-    with open('data.csv','w',newline='') as file:
+    with open('data.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(data)
         writer.writerows(temp_data)
+
+
+if __name__ =="__main__":
+    data_select('../meta.csv')
