@@ -91,7 +91,7 @@ def get_Wrinkle_vector(face_image_path):
         mask[0:0, 0:0] = 255
         image = cv2.bitwise_and(gray, gray, mask=mask)
         theta=[0,math.pi/2,math.pi/4,math.pi/4*3]
-        for i in range(1):
+        for i in range(4):
             g=gray
             left=min(x[2*i],x[2*i+1])
             right=max(x[2*i],x[2*i+1])
